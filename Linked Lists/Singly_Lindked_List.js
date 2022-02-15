@@ -112,4 +112,20 @@ class SinglyLinkedList {
         this.length--;
         return removedNode;
     }
+    reverse() {
+        // Swapping head and tail
+        let temp = this.head;
+        this.head = this.tail;
+        this.tail = temp;
+
+        let node = temp;
+        let next, prev = null;
+        for(let i=0; i<this.length; i++) {
+            next = node.next;
+            node.next = prev;
+            prev = node;
+            node = next;
+        }
+        return this;
+    }
 }
