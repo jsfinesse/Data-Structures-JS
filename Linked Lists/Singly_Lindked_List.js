@@ -16,11 +16,10 @@ class SinglyLinkedList {
     }
     push(val) {
         const newNode = new Node(val);
-        if(!this.head) {
+        if (!this.head) {
             this.head = newNode;
             this.tail = this.head;
-        }
-        else {
+        } else {
             // set the next property of the current tail to the newly created node
             this.tail.next = newNode;
             // update the new tail to be the newly created node
@@ -30,39 +29,38 @@ class SinglyLinkedList {
         return this;
     }
     pop() {
-        if(!this.head) return undefined;
+        if (!this.head) return undefined;
         let current = this.head;
         let newTail = current;
-        while(current.next) {
+        while (current.next) {
             newTail = current;
             current = currnet.next;
         }
         this.tail = newTail;
         this.tail.next = null;
         this.length--;
-        if(this.length === 0) {
+        if (this.length === 0) {
             this.head = null;
             this.tail = null;
         }
         return current;
     }
     shift() {
-        if(!this.head) return undefined;
+        if (!this.head) return undefined;
         let currentHead = this.head;
         this.head = currentHead.next;
         this.length--;
-        if(this.length === 0) {
+        if (this.length === 0) {
             this.tail = null;
         }
         return currentHead;
     }
     unshift(val) {
         const newNode = new Node(val);
-        if(!this.head) {
+        if (!this.head) {
             this.head = newNode;
             this.tail = this.tail;
-        }
-        else {
+        } else {
             newNode.next = this.head;
             this.head = newNode;
         }
@@ -86,5 +84,32 @@ class SinglyLinkedList {
             return true;
         }
         return false;
+    }
+    insert(value, index) {
+        if (index < 0 || index > this.length) return false;
+        if (index === this.length) return !!this.push(value);
+        if (index === 0) return !!this.unshift(value);
+
+        const lastNode = this.get(index - 1);
+        const newNode = new Node(value);
+        const temp = lastNode.next;
+
+        lastNode.next = newNode;
+        newNode.next = temp;
+
+        this.length++;
+        return true;
+    }
+    remove(index) {
+        if (index < 0 || index > this.length) return undefined;
+        if (index === this.length - 1) return this.pop();
+        if (index === 0) return this.shift();
+
+        const lastNode = this.get(index-1);
+        const removedNode = lastNode.next;
+        lastNode.next = removedNode.next;
+        
+        this.length--;
+        return removedNode;
     }
 }
