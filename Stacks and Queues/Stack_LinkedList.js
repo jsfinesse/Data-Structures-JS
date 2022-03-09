@@ -13,16 +13,27 @@ class Stack {
     }
     push(val) {
         const newNode = new Node(val);
-        if(!this.first) {
+        if (!this.first) {
             this.first = newNode;
             this.last = newNode;
-        }
-        else {
+        } else {
             const temp = this.first;
             this.first = newNode;
             this.first.next = temp;
         }
 
         return ++this.size;
+    }
+    pop() {
+        if (!this.first) {
+            return null;
+        }
+        const temp = this.first;
+        if (this.first === this.last) {
+            this.last = null;
+        }
+        this.first = this.first.next;
+        this.size--;
+        return temp.value;
     }
 }
